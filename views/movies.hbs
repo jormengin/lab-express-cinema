@@ -1,0 +1,11 @@
+<button type="button"><a href="/">Back to home page</a></button>
+<h3>Click on the movie to check the showtimes!</h3>
+<div id="all-movies">
+  {{#each movies}}
+    <div id="movie">
+      <img src="{{this.image}}" alt="Movie image" />
+      <h4>{{this.title}}</h4>
+      <button type="button"><a href="/movies/{{this._id}}">See more</a></button>
+    </div>
+  {{/each}}
+</div>

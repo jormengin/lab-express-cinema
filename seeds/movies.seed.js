@@ -1,9 +1,3 @@
-const mongoose = require('mongoose');
-mongoose.set('strictQuery', true);
-const Movie= require('../models/movie.models');
-const MONGO_URL = 'mongodb://localhost:27017/lab-express-cinema';
-
-
 const movies = [
     {
       title: "A Wrinkle in Time",
@@ -86,17 +80,21 @@ const movies = [
       showtimes: ["13:00", "15:30", "18:00", "20:10", "22:40"]
     }
   ];
-
-mongoose.connect(MONGO_URL)
-.then(response => console.log("Connected to DB for seeding"))
-.then(() => {
-    return Movie.deleteMany();
+  
+  // Add here the script that will be run to actually seed the database (feel free to refer to the previous lesson)
+  
+  const MONGO_URL = "mongodb://localhost:27017/lab-express-cinema";
+  const mongoose = require("mongoose");
+  mongoose.set("strictQuery", true);
+  const Movie = require("../models/Movie.model");
+  
+  mongoose.connect(MONGO_URL)
+  .then(response => console.log("Connected to DB for seeding"))
+  .then(() => {
+    Movie.create(movies);
   })
-.then(() => {
-  return Movie.create(movies);
-})
-.then(createdShows => console.log(`Inserted ${createdShows.length} shows in the database`))
-.then(() => mongoose.connection.close())
-.catch(err => console.log(err));
-
-module.exports = movies;
+  // .then(() => mongoose.connection.close())
+  // the close connection created a MongoClient issue
+  .catch(err => console.log(err));
+  
+  module.exports = movies;
